@@ -29,7 +29,6 @@ export const signup = async (req, res) => {
         maxAge: 1000 * 60 * 60 * 24 * 7, // 7 days
         secure: NODE_ENV !== "dev",
         sameSite: "strict",
-        httpOnly: true,
       });
       return res.json({
         message: "Signed up successfully",
@@ -73,7 +72,6 @@ export const login = async (req, res) => {
         maxAge: 1000 * 60 * 60 * 24 * 7, // 7 days
         secure: NODE_ENV !== "dev",
         sameSite: "strict",
-        httpOnly: true,
       });
       return res.json({
         message: "Logged in successfully",
