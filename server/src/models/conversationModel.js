@@ -1,7 +1,6 @@
-import { Request, Response } from "express";
 import { prisma } from "../prisma.js";
 import { io } from "../socket/socket.js";
-export const createConversation = async (req: Request, res: Response) => {
+export const createConversation = async (req, res) => {
   const type = req?.body?.type;
   const members = req?.body?.members;
   try {
@@ -9,7 +8,7 @@ export const createConversation = async (req: Request, res: Response) => {
       data: {
         type: type,
         members: {
-          create: members?.map((user: any) => ({ userId: user?.id })),
+          create: members?.map((user) => ({ userId: user?.id })),
         },
         groupTitle: req?.body?.groupTitle,
         isGroup: req?.body?.isGroup,
@@ -25,7 +24,7 @@ export const createConversation = async (req: Request, res: Response) => {
     return res.json({ error: error?.toString() });
   }
 };
-export const getConversations = async (req: Request, res: Response) => {
+export const getConversations = async (req, res) => {
   const userId = req?.user?.id;
   const searchValue = req?.body?.searchValue;
   try {
@@ -66,7 +65,7 @@ export const getConversations = async (req: Request, res: Response) => {
   }
 };
 
-export const deleteConversation = async (req: Request, res: Response) => {
+export const deleteConversation = async (req, res) => {
   const member = await prisma.member.findFirst({
     where: {
       AND: [

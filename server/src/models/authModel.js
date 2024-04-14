@@ -3,8 +3,7 @@ import bcrypt from "bcrypt";
 import generateToken from "../utils/generateToken.js";
 import jwt from "jsonwebtoken";
 import { CLIENT_AUTH_URL, JWT_SECRET_KEY, NODE_ENV } from "../constants.js";
-import { Request, Response } from "express";
-export const signup = async (req: Request, res: Response) => {
+export const signup = async (req, res) => {
   const { email, password, name, imageUrl = null } = req?.body;
   if (!email) {
     return res.json({ message: "Email is required" });
@@ -47,7 +46,7 @@ export const signup = async (req: Request, res: Response) => {
     return res.json({ error: error?.toString() });
   }
 };
-export const login = async (req: Request, res: Response) => {
+export const login = async (req, res) => {
   const { email, password } = req?.body;
   if (!email) {
     return res.json({ message: "Email is required" });
@@ -91,19 +90,19 @@ export const login = async (req: Request, res: Response) => {
     return res.json({ error: error?.toString() });
   }
 };
-export const verifyUser = async (req: Request, res: Response) => {
+export const verifyUser = async (req, res) => {
   const cookies = req?.cookies;
   if (cookies?.token) {
-    const decodedToken: any = jwt.verify(cookies.token, JWT_SECRET_KEY);
+    const decodedToken = jwt.verify(cookies.token, JWT_SECRET_KEY);
     if (!decodedToken) {
-      return res.redirect(CLIENT_AUTH_URL as string);
+      return res.redirect(CLIENT_AUTH_URL);
     }
     try {
       const existingUser = await prisma.user.findFirst({
         where: { email: decodedToken?.email },
       });
       if (!existingUser) {
-        return res.redirect(CLIENT_AUTH_URL as string);
+        return res.redirect(CLIENT_AUTH_URL);
       }
       return res.json({
         isAuthenticated: true,
@@ -116,7 +115,7 @@ export const verifyUser = async (req: Request, res: Response) => {
       });
     } catch (error) {
       console.log(error);
-      return res.redirect(CLIENT_AUTH_URL as string);
+      return res.redirect(CLIENT_AUTH_URL);
     }
   }
 };

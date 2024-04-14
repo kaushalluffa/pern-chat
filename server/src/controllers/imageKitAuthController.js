@@ -1,5 +1,5 @@
 import express from "express";
-import { imagekit } from "../constants.js";
+import { imagekit } from "../index.js";
 import { deleteImageKitFileRoute } from "../utils/deleteImageKitFile.js";
 
 const imageKitAuthController = express.Router();

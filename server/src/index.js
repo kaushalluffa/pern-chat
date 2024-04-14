@@ -1,7 +1,15 @@
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import cors from "cors";
-import { PORT, COMPLETE_URL, CLIENT_URL, NODE_ENV } from "./constants.js";
+import {
+  PORT,
+  COMPLETE_URL,
+  CLIENT_URL,
+  NODE_ENV,
+  IMAGE_KIT_URL_ENDPOINT,
+  IMAGE_KIT_PUBLIC_KEY,
+  IMAGE_KIT_PRIVATE_KEY,
+} from "./constants.js";
 import bodyParser from "body-parser";
 import conversationRouter from "./controllers/conversationControllers.js";
 import messageRouter from "./controllers/messageController.js";
@@ -14,6 +22,7 @@ import authMiddleware from "./middleware/authMiddleware.js";
 import imageKitAuthController from "./controllers/imageKitAuthController.js";
 import path from "path";
 import express from "express";
+import ImageKit from "imagekit";
 dotenv.config();
 const __dirname = path.resolve();
 const corsOptions = {
@@ -25,6 +34,11 @@ app.use(cookieParser());
 app.use(cors(corsOptions));
 app.use(bodyParser.json());
 
+export const imagekit = new ImageKit({
+  urlEndpoint: IMAGE_KIT_URL_ENDPOINT,
+  publicKey: IMAGE_KIT_PUBLIC_KEY,
+  privateKey: IMAGE_KIT_PRIVATE_KEY,
+});
 // io middleware auth
 io.use(ioMiddleware).on("connection", (socket) => {
   handleEvents(socket);

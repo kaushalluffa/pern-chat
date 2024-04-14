@@ -1,7 +1,6 @@
 import jwt from "jsonwebtoken";
 import { JWT_SECRET_KEY } from "../constants.js";
-import { Prisma } from "@prisma/client";
-export default async function generateToken(user: Prisma.UserCreateInput) {
+export default async function generateToken(user) {
   const token = jwt.sign(
     {
       email: user?.email,

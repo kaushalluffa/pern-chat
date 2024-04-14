@@ -1,7 +1,6 @@
-import { Request, Response } from "express";
-import { imagekit } from "../constants.js";
+import { imagekit } from '../index.js';
 
-export async function deleteImageKitFile(fileId: string) {
+export async function deleteImageKitFile(fileId) {
   try {
     imagekit.deleteFile(fileId, function (error) {
       if (error) {
@@ -15,7 +14,7 @@ export async function deleteImageKitFile(fileId: string) {
     return { error: error?.toString() };
   }
 }
-export async function deleteImageKitFileRoute(req: Request, res: Response) {
+export async function deleteImageKitFileRoute(req, res) {
   const fileId = req?.body?.fileId;
   try {
     const response = await deleteImageKitFile(fileId);

@@ -3,13 +3,40 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "buildClient": "npm install --prefix client && npm run build --prefix client",
-    "buildServer": "npm install --prefix server && npm run build --prefix server",
+    "buildServer": "npm install",
     "build": "npm run buildServer && npm run buildClient",
-    "start": "npm run prisma:updateSchema --prefix server && npm start --prefix server"
+    "start": "npm run prisma:updateSchema && node ./server/src/index.js",
+    "prisma:updateSchema": "npx prisma generate && npx prisma db push",
+    "dev": "npx tsx watch src/index.js"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "@prisma/client": "^5.12.1",
+    "@socket.io/admin-ui": "^0.5.1",
+    "bcrypt": "^5.1.1",
+    "body-parser": "^1.20.2",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.1",
+    "imagekit": "^5.0.1",
+    "jsonwebtoken": "^9.0.2",
+    "socket.io": "^4.7.5",
+    "uuid": "^9.0.1"
+  },
+  "devDependencies": {
+    "prisma": "^5.12.1",
+    "tsx": "^4.7.2"
+  },
+  "engines": {
+    "node": ">=18.18.0 <19.0.0"
+  },
+  "prisma": {
+    "schema": "server/prisma/schema.prisma"
+  }
 }

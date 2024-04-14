@@ -1,11 +1,6 @@
-import { Response } from "express";
 import { JWT_SECRET_KEY } from "../constants.js";
 import jwt from "jsonwebtoken";
-export default async function authMiddleware(
-  req: any,
-  res: Response,
-  next: any
-) {
+export default async function authMiddleware(req, res, next) {
   const token = req?.cookies?.token ?? null;
   let verifiedToken;
   try {

@@ -1,9 +1,8 @@
-import { Request, Response } from "express";
 import { prisma } from "../prisma.js";
 import { io } from "../socket/socket.js";
 import { deleteImageKitFile } from "../utils/deleteImageKitFile.js";
 
-export const getMessages = async (req: Request, res: Response) => {
+export const getMessages = async (req, res) => {
   try {
     const messages = await prisma.message.findMany({
       where: { conversationId: req?.body?.conversationId },
@@ -23,7 +22,7 @@ export const getMessages = async (req: Request, res: Response) => {
     return res.json({ error: error?.toString() });
   }
 };
-export const createMessage = async (req: Request, res: Response) => {
+export const createMessage = async (req, res) => {
   try {
     const message = await prisma.message.create({
       data: {
@@ -47,12 +46,12 @@ export const createMessage = async (req: Request, res: Response) => {
       io.to(member?.userId).emit("newMessageInConversation", message);
     });
     return res.json(message);
-  } catch (error: any) {
+  } catch (error) {
     console.log(error);
     return res.json({ error: error?.toString() });
   }
 };
-export const deleteMessage = async (req: Request, res: Response) => {
+export const deleteMessage = async (req, res) => {
   try {
     const message = await prisma.message.findFirst({
       where: { id: req?.body?.message?.id },
@@ -80,7 +79,7 @@ export const deleteMessage = async (req: Request, res: Response) => {
         message: "You are not allowed to delete this message",
       });
     }
-  } catch (error: any) {
+  } catch (error) {
     console.log(error);
     return res.json({ error: error?.toString() });
   }
