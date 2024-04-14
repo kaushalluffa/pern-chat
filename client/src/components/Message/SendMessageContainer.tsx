@@ -114,7 +114,7 @@ const SendMessageContainer = () => {
               onEmojiSelect={(emojiData: EmojiData) => {
                 setMessageBody((prev) => ({
                   ...prev,
-                  body: `${prev} ${emojiData?.native}`,
+                  body: `${prev?.body} ${emojiData?.native}`,
                 }));
               }}
             />
