@@ -7,7 +7,7 @@
     "buildClient": "npm install --prefix client && npm run build --prefix client",
     "buildServer": "npm install --prefix server && npm run build --prefix server",
     "build": "npm run buildServer && npm run buildClient",
-    "start": "npm start --prefix server"
+    "start": "npm run prisma:updateSchema --prefix server && npm start --prefix server"
   },
   "keywords": [],
   "author": "",
