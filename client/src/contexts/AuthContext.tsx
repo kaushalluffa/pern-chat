@@ -22,6 +22,7 @@ const AuthContextProvider = ({ children }: { children: React.ReactNode }) => {
   const [showLoading, setShowLoading] = useState<boolean>(true);
 
   useEffect(() => {
+    console.log(cookies, pathname, "s");
     const authUser = async () => {
       setShowLoading(true);
       if (cookies && cookies?.token && typeof cookies?.token === "string") {
