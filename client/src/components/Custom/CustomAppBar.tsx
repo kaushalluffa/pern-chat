@@ -66,7 +66,6 @@ const CustomAppBar = ({ drawerWidth }: CustomAppBarProps) => {
           width: isTablet ? "100%" : `calc(100% - ${drawerWidth}px)`,
           ml: { sm: `${drawerWidth}px` },
         }}
-        color="transparent"
       >
         <Toolbar>
           <Grid container justifyContent="space-between" alignItems="center">
