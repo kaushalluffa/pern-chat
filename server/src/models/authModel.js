@@ -28,7 +28,7 @@ export const signup = async (req, res) => {
       res.cookie("token", await generateToken(newUser), {
         maxAge: 1000 * 60 * 60 * 24 * 7, // 7 days
         secure: NODE_ENV !== "dev",
-        sameSite: NODE_ENV !== "dev" ? "none" : "lax",
+        sameSite: "strict",
         httpOnly: true,
       });
       return res.json({
@@ -72,7 +72,7 @@ export const login = async (req, res) => {
       res.cookie("token", await generateToken(existingUser), {
         maxAge: 1000 * 60 * 60 * 24 * 7, // 7 days
         secure: NODE_ENV !== "dev",
-        sameSite: NODE_ENV !== "dev" ? "none" : "lax",
+        sameSite: "strict",
         httpOnly: true,
       });
       return res.json({
